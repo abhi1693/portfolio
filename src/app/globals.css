@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "GeistOriginal";
+  font-weight: 100 900;
+  src: local("Geist"), local("Helvetica Neue"), local("Arial");
+}
+
 @layer base {
   :root {
     --background: 60 8% 98%;
@@ -71,15 +77,19 @@
   }
 
   .glitch-text {
+    animation: glitch-anim 5s infinite;
+    font-family: "GeistOriginal", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0;
     position: relative;
   }
 
   .glitch-text::before,
   .glitch-text::after {
     content: attr(data-text);
+    background: transparent;
     height: 100%;
     left: 0;
-    opacity: 0;
     overflow: hidden;
     position: absolute;
     top: 0;
@@ -87,15 +97,17 @@
   }
 
   .glitch-text::before {
-    animation: glitch-before 5s infinite linear alternate-reverse;
-    color: #ff00c1;
-    transform: translateX(2px);
+    animation: glitch-anim-2 5s infinite linear alternate-reverse;
+    clip: rect(44px, 450px, 56px, 0);
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
   }
 
   .glitch-text::after {
-    animation: glitch-after 5s infinite linear alternate-reverse;
-    color: #00fff9;
-    transform: translateX(-2px);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+    clip: rect(44px, 450px, 56px, 0);
+    left: -2px;
+    text-shadow: -2px 0 #00fff9;
   }
 }
 
@@ -132,37 +144,51 @@
   }
 }
 
-@keyframes glitch-before {
-  0%,
-  94%,
-  100% {
-    clip-path: inset(0 0 100% 0);
-    opacity: 0;
+@keyframes glitch-anim {
+  0% {
+    clip: rect(31px, 9999px, 94px, 0);
+  }
+  4.75% {
+    clip: rect(31px, 9999px, 94px, 0);
+  }
+  5% {
+    clip: rect(85px, 9999px, 11px, 0);
+  }
+  5.25% {
+    clip: rect(31px, 9999px, 94px, 0);
   }
   95% {
-    clip-path: inset(18% 0 68% 0);
-    opacity: 0.65;
+    clip: rect(31px, 9999px, 94px, 0);
   }
-  96% {
-    clip-path: inset(58% 0 26% 0);
-    opacity: 0.35;
+  95.25% {
+    clip: rect(12px, 9999px, 45px, 0);
+  }
+  95.5% {
+    clip: rect(31px, 9999px, 94px, 0);
   }
 }
 
-@keyframes glitch-after {
-  0%,
-  94%,
-  100% {
-    clip-path: inset(100% 0 0 0);
-    opacity: 0;
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(65px, 9999px, 100px, 0);
+  }
+  4.75% {
+    clip: rect(65px, 9999px, 100px, 0);
+  }
+  5% {
+    clip: rect(2px, 9999px, 40px, 0);
+  }
+  5.25% {
+    clip: rect(65px, 9999px, 100px, 0);
   }
   95% {
-    clip-path: inset(48% 0 38% 0);
-    opacity: 0.65;
+    clip: rect(65px, 9999px, 100px, 0);
   }
-  96% {
-    clip-path: inset(22% 0 64% 0);
-    opacity: 0.35;
+  95.25% {
+    clip: rect(78px, 9999px, 12px, 0);
+  }
+  95.5% {
+    clip: rect(65px, 9999px, 100px, 0);
   }
 }
 

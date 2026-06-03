@@ -324,13 +324,13 @@ function Hero() {
           </span>
           SYSTEM_INITIALIZED: V2.4.0
         </div>
-        <h1
-          className="glitch-text pointer-events-auto mb-6 text-[64px] font-black leading-none tracking-tight text-foreground sm:text-[86px] lg:text-[100px]"
-          data-text="Abhimanyu Saharan"
-        >
-          Abhimanyu
-          <br />
-          Saharan
+        <h1 className="pointer-events-auto mb-6 text-[64px] leading-none text-foreground sm:text-[86px] lg:text-[100px]">
+          <span className="glitch-text block" data-text="Abhimanyu">
+            Abhimanyu
+          </span>
+          <span className="block font-[GeistOriginal] font-normal tracking-normal">
+            Saharan
+          </span>
         </h1>
         <Card className="pointer-events-auto relative max-w-xl overflow-hidden border-2 border-black bg-white shadow-[8px_8px_0_rgba(0,0,0,0.10)]">
           <div className="absolute left-0 top-0 h-full w-1 bg-primary" />
