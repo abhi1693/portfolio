@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ArrowUpRight,
   AtSign,
   BookOpen,
   BriefcaseBusiness,
@@ -271,7 +270,7 @@ function WindowControls() {
 function Header() {
   return (
     <header className="sticky top-0 z-50 border-b-2 border-black bg-white/90 backdrop-blur-md">
-      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-4 py-4 md:px-12">
+      <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between px-4 py-4 md:px-12">
         <Link href="#" className="flex items-center gap-2">
           <span className="flex size-8 items-center justify-center rounded-sm bg-black font-mono text-xs font-bold text-white">
             A.OS
@@ -300,9 +299,11 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="relative mx-auto flex min-h-[85vh] w-full max-w-[1200px] flex-col items-start justify-center overflow-hidden px-4 py-20 md:px-12">
+    <section className="relative flex min-h-[85vh] w-full flex-col items-start justify-center overflow-hidden border-b border-black/10 py-20">
       <ParticleCanvas />
-      <div className="pointer-events-none absolute right-10 top-10 z-10 hidden w-48 space-y-1 font-mono text-[10px] uppercase text-black/40 lg:block">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-px bg-primary/10" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-px bg-primary/10" />
+      <div className="pointer-events-none absolute right-10 top-10 z-10 hidden w-48 space-y-1 font-mono text-[10px] uppercase text-black/40 2xl:right-[calc((100vw-1500px)/2+2.5rem)] lg:block">
         <div className="flex justify-between border-b border-black pb-1">
           <span>CPU_LOAD</span>
           <span className="text-primary">12.4%</span>
@@ -316,7 +317,7 @@ function Hero() {
           <span className="text-green-600">ACTIVE</span>
         </div>
       </div>
-      <div className="pointer-events-none relative z-10">
+      <div className="pointer-events-none relative z-10 mx-auto w-full max-w-[1500px] px-4 md:px-12">
         <div className="pointer-events-auto mb-6 inline-flex items-center gap-3 rounded-sm bg-black px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-white">
           <span className="animate-[heartbeat_2s_ease-in-out_infinite] text-primary">
             ●
@@ -372,61 +373,56 @@ function ProjectCard({
   project: (typeof projects)[number];
 }) {
   return (
-    <Card
-      className="group flex flex-col overflow-hidden border-2 border-black bg-white transition-transform duration-300 hover:shadow-[8px_8px_0_rgba(0,88,190,0.25)]"
+    <Link
+      href={project.href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`Open ${project.title}`}
+      className="group block"
     >
-      <div className="flex items-center justify-between border-b-2 border-black bg-black p-3 text-white">
-        <WindowControls />
-        <span className="font-mono text-[10px] uppercase tracking-tight">
-          {project.windowTitle}
-        </span>
-      </div>
-      <CardContent className="flex flex-1 flex-col p-6">
-        <div className="mb-4">
-          <Badge className={project.statusClass}>
-            {project.status}
-          </Badge>
+      <Card className="flex h-full cursor-pointer flex-col overflow-hidden border-2 border-black bg-white transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-[8px_8px_0_rgba(0,88,190,0.25)]">
+        <div className="flex items-center justify-between border-b-2 border-black bg-black p-3 text-white">
+          <WindowControls />
+          <span className="font-mono text-[10px] uppercase tracking-tight">
+            {project.windowTitle}
+          </span>
         </div>
-        <h3 className="mb-3 text-2xl font-black tracking-tight text-foreground">
-          {project.title}
-        </h3>
-        <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-          {project.description}
-        </p>
-        <div className="mb-6 rounded-sm border border-black/5 bg-muted p-4 font-mono text-[11px] leading-tight">
-          {project.metrics.map(([label, value, color]) => (
-            <div key={label} className="mb-1 flex justify-between last:mb-0">
-              <span>{label}</span>
-              <span className={color}>{value}</span>
-            </div>
+        <CardContent className="flex flex-1 flex-col p-6">
+          <div className="mb-4">
+            <Badge className={project.statusClass}>{project.status}</Badge>
+          </div>
+          <h3 className="mb-3 text-2xl font-black tracking-tight text-foreground">
+            {project.title}
+          </h3>
+          <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+            {project.description}
+          </p>
+          <div className="mt-auto rounded-sm border border-black/5 bg-muted p-4 font-mono text-[11px] leading-tight">
+            {project.metrics.map(([label, value, color]) => (
+              <div key={label} className="mb-1 flex justify-between last:mb-0">
+                <span>{label}</span>
+                <span className={color}>{value}</span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+        <div className="flex flex-wrap gap-2 border-t border-black/10 p-4">
+          {project.tags.map((tag, index) => (
+            <span
+              key={tag}
+              className={cn(
+                "px-2 py-1 font-mono text-[9px] font-bold uppercase",
+                index === 0 && "bg-black text-white",
+                index === 1 && "bg-muted text-black",
+                index === 2 && "bg-primary text-white",
+              )}
+            >
+              {tag}
+            </span>
           ))}
         </div>
-        <Link
-          href={project.href}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-auto flex items-center gap-2 font-mono text-sm font-bold text-primary group-hover:underline"
-        >
-          {project.linkLabel}
-          <ArrowUpRight className="size-4" />
-        </Link>
-      </CardContent>
-      <div className="flex flex-wrap gap-2 border-t border-black/10 p-4">
-        {project.tags.map((tag, index) => (
-          <span
-            key={tag}
-            className={cn(
-              "px-2 py-1 font-mono text-[9px] font-bold uppercase",
-              index === 0 && "bg-black text-white",
-              index === 1 && "bg-muted text-black",
-              index === 2 && "bg-primary text-white",
-            )}
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-    </Card>
+      </Card>
+    </Link>
   );
 }
 
@@ -434,7 +430,7 @@ function Projects() {
   return (
     <section
       id="projects"
-      className="mx-auto w-full max-w-[1200px] border-t-2 border-black px-4 py-16 md:px-12"
+      className="mx-auto w-full max-w-[1500px] border-t-2 border-black px-4 py-16 md:px-12"
     >
       <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
@@ -468,7 +464,7 @@ function Expertise() {
   return (
     <section
       id="expertise"
-      className="relative mx-auto w-full max-w-[1200px] px-4 py-32 md:px-12"
+      className="relative mx-auto w-full max-w-[1500px] px-4 py-32 md:px-12"
     >
       <div className="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden opacity-20 lg:block">
         <div className="absolute left-0 top-1/2 h-[2px] w-full bg-black" />
@@ -514,8 +510,8 @@ function Footer() {
 
   return (
     <footer className="w-full border-t-4 border-black bg-white">
-      <div className="mx-auto flex max-w-[1200px] flex-col gap-8 px-4 py-8 md:px-12">
-        <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+      <div className="mx-auto flex max-w-[1500px] flex-col gap-8 px-4 py-8 md:px-12">
+        <div>
           <div>
             <span className="mb-3 block font-mono text-[10px] font-bold uppercase text-primary">
               {"// SOCIALS"}
@@ -540,10 +536,6 @@ function Footer() {
                 );
               })}
             </nav>
-          </div>
-          <div className="min-w-[280px] border-2 border-dashed border-black/20 px-6 py-5 text-left md:text-center">
-            <div className="mb-2 font-mono text-xs">LAST_SYSTEM_PULSE</div>
-            <div className="text-2xl font-black">2024-12-04 09:12:00</div>
           </div>
         </div>
         <div className="h-px w-full bg-black/10" />
