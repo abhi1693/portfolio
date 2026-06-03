@@ -14,7 +14,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Abhimanyu Saharan | DevOps engineer and product builder",
+  title: "ABHIMANYU.OS - System Terminal",
   description:
     "A premium personal portfolio for Abhimanyu Saharan, DevOps engineer, product builder, and homelab operator.",
 };

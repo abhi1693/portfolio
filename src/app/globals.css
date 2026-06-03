@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    --background: 48 20% 97%;
-    --foreground: 210 10% 10%;
+    --background: 60 8% 98%;
+    --foreground: 180 4% 11%;
     --card: 0 0% 100%;
     --card-foreground: 210 10% 10%;
-    --primary: 214 100% 37%;
+    --primary: 212 100% 37%;
     --primary-foreground: 0 0% 100%;
     --secondary: 30 8% 88%;
     --secondary-foreground: 210 10% 10%;
@@ -19,7 +19,7 @@
     --border: 220 11% 78%;
     --input: 220 11% 78%;
     --ring: 214 100% 37%;
-    --radius: 0.35rem;
+    --radius: 0.125rem;
   }
 
   * {

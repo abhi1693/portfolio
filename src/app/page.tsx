@@ -7,9 +7,7 @@ import {
   BriefcaseBusiness,
   Code2,
   ExternalLink,
-  MemoryStick,
   Network,
-  Search,
   Server,
   Terminal,
   Video,
@@ -29,6 +27,7 @@ const projects = [
     href: "http://shipyardhq.dev/",
     windowTitle: "shipyard_hq.v2.exe",
     status: "STATUS: DEPLOYED",
+    statusClass: "border-primary/20 bg-primary/10 text-primary",
     description:
       "Full-scale platform for builders to coordinate and launch high-velocity web products with automated CI/CD flows.",
     metrics: [
@@ -36,13 +35,14 @@ const projects = [
       ["BUILD", "00:42 SEC", "text-primary"],
     ],
     linkLabel: "VIEW_LIVE_INSTANCE",
-    tags: ["NEXT.JS", "POSTGRES", "VERCEL"],
+    tags: ["NEXT.JS", "POSTGRES", "HOMELAB"],
   },
   {
     title: "GitRank",
     href: "https://git-rank.dev/",
     windowTitle: "gitrank_v1.0.exe",
     status: "TRAFFIC: HIGH",
+    statusClass: "border-green-200 bg-green-100 text-green-700",
     description:
       "Data visualization tool for open-source maintainers to track visibility metrics across the GitHub ecosystem.",
     metrics: [
@@ -57,6 +57,7 @@ const projects = [
     href: "https://blog.abhimanyu-saharan.com/",
     windowTitle: "eng_logs.md",
     status: "UPDATED: 2h AGO",
+    statusClass: "border-orange-200 bg-orange-100 text-orange-700",
     description:
       "In-depth documentation of infrastructure experiments, homelab configurations, and technical learnings.",
     metrics: [
@@ -73,55 +74,27 @@ const expertise = [
     title: "Infrastructure",
     icon: Network,
     copy: "Expertise in K8s orchestration, CI/CD pipelines, and Infrastructure as Code for scalable ecosystems.",
-    checks: ["KUBERNETES_MASTER", "AWS_ARCHITECT"],
   },
   {
     title: "Development",
     icon: Code2,
     copy: "Fullstack engineering with a focus on high-performance APIs and reactive frontend architectures.",
-    checks: ["TS_FULLSTACK", "API_DESIGN_PRO"],
   },
   {
     title: "Automation",
     icon: Zap,
     copy: "Scripting custom solutions for process optimization and system reliability engineering.",
-    checks: ["PYTHON_AUTO", "BASH_LEGEND"],
   },
   {
     title: "Homelab",
     icon: Server,
     copy: "Self-hosting high-availability storage, virtualization, and advanced network security layers.",
-    checks: ["PROXMOX_LVL_5", "ZFS_STORAGE"],
   },
   {
     title: "Writing & Documentation",
     icon: BookOpen,
     copy: "Communicating complex technical concepts through clear, structured documentation and case studies. Bridging the gap between code and human understanding.",
-    checks: ["TECH_AUTH_V3", "KNOWLEDGE_MGT"],
     wide: true,
-  },
-];
-
-const offscreen = [
-  {
-    title: "RACK_OPTIMIZATION",
-    copy: "Tuning hardware for max IOPS.",
-    icon: Server,
-  },
-  {
-    title: "HARDWARE_TEARDOWN",
-    copy: "Exploring PCB architecture.",
-    icon: MemoryStick,
-  },
-  {
-    title: "RABBIT_HOLES",
-    copy: "Deep dives into tech subcultures.",
-    icon: Search,
-  },
-  {
-    title: "ASYNC_LEARNING",
-    copy: "Consuming whitepapers & docs.",
-    icon: BookOpen,
   },
 ];
 
@@ -304,22 +277,19 @@ function Header() {
             A.OS
           </span>
           <span className="text-xl font-black uppercase italic tracking-tight">
-            ABHIMANYU<span className="text-primary">.OS</span>
+            ABHIMANYU
           </span>
         </Link>
-        <nav className="hidden items-center gap-6 rounded-full border bg-muted/50 px-6 py-2 font-mono text-[11px] font-bold uppercase md:flex">
-          <Link href="#projects" className="flex items-center gap-1 hover:text-primary">
-            <span className="text-primary/50">01</span> PROJECTS
-          </Link>
-          <Link href="#expertise" className="flex items-center gap-1 hover:text-primary">
-            <span className="text-primary/50">02</span> EXPERTISE
-          </Link>
-          <Link href="#personal" className="flex items-center gap-1 hover:text-primary">
-            <span className="text-primary/50">03</span> HOMELAB
-          </Link>
-        </nav>
-        <Button asChild size="sm" className="font-mono text-[11px] uppercase">
-          <Link href="https://www.linkedin.com/in/abhimanyu-saharan" target="_blank">
+        <Button
+          asChild
+          size="sm"
+          className="h-auto bg-primary px-5 py-2 font-mono text-[11px] uppercase text-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:bg-black"
+        >
+          <Link
+            href="https://www.linkedin.com/in/abhimanyu-saharan"
+            target="_blank"
+            rel="noreferrer"
+          >
             EXEC: CONNECT
           </Link>
         </Button>
@@ -383,9 +353,9 @@ function Hero() {
             asChild
             variant="secondary"
             size="lg"
-            className="font-mono text-sm uppercase"
+            className="font-mono text-sm uppercase shadow-[6px_6px_0px_rgba(0,0,0,0.10)]"
           >
-            <Link href="https://github.com/abhi1693" target="_blank">
+            <Link href="https://github.com/abhi1693" target="_blank" rel="noreferrer">
               GITHUB_MIRROR
               <ExternalLink />
             </Link>
@@ -398,17 +368,12 @@ function Hero() {
 
 function ProjectCard({
   project,
-  lifted,
 }: {
   project: (typeof projects)[number];
-  lifted?: boolean;
 }) {
   return (
     <Card
-      className={cn(
-        "group flex flex-col overflow-hidden border-2 border-black bg-white transition-transform duration-300 hover:shadow-[8px_8px_0_rgba(0,88,190,0.25)]",
-        lifted && "lg:translate-y-6",
-      )}
+      className="group flex flex-col overflow-hidden border-2 border-black bg-white transition-transform duration-300 hover:shadow-[8px_8px_0_rgba(0,88,190,0.25)]"
     >
       <div className="flex items-center justify-between border-b-2 border-black bg-black p-3 text-white">
         <WindowControls />
@@ -418,7 +383,7 @@ function ProjectCard({
       </div>
       <CardContent className="flex flex-1 flex-col p-6">
         <div className="mb-4">
-          <Badge className="border-primary/20 bg-primary/10 text-primary">
+          <Badge className={project.statusClass}>
             {project.status}
           </Badge>
         </div>
@@ -439,6 +404,7 @@ function ProjectCard({
         <Link
           href={project.href}
           target="_blank"
+          rel="noreferrer"
           className="mt-auto flex items-center gap-2 font-mono text-sm font-bold text-primary group-hover:underline"
         >
           {project.linkLabel}
@@ -447,9 +413,17 @@ function ProjectCard({
       </CardContent>
       <div className="flex flex-wrap gap-2 border-t border-black/10 p-4">
         {project.tags.map((tag, index) => (
-          <Badge key={tag} variant={index === 0 ? "inverse" : index === 2 ? "default" : "muted"}>
+          <span
+            key={tag}
+            className={cn(
+              "px-2 py-1 font-mono text-[9px] font-bold uppercase",
+              index === 0 && "bg-black text-white",
+              index === 1 && "bg-muted text-black",
+              index === 2 && "bg-primary text-white",
+            )}
+          >
             {tag}
-          </Badge>
+          </span>
         ))}
       </div>
     </Card>
@@ -480,8 +454,8 @@ function Projects() {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        {projects.map((project, index) => (
-          <ProjectCard key={project.title} project={project} lifted={index === 2} />
+        {projects.map((project) => (
+          <ProjectCard key={project.title} project={project} />
         ))}
       </div>
     </section>
@@ -489,6 +463,8 @@ function Projects() {
 }
 
 function Expertise() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <section
       id="expertise"
@@ -505,7 +481,7 @@ function Expertise() {
           Stack Architecture
         </h2>
         <div className="inline-block border-y-2 border-primary px-4 py-1 font-mono text-xs font-bold uppercase text-primary">
-          SYS_CAPABILITIES_REPORT_2024
+          SYS_CAPABILITIES_REPORT_{currentYear}
         </div>
       </div>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -524,15 +500,7 @@ function Expertise() {
               </div>
               <Icon className="mb-4 size-7 text-primary group-hover:text-white" />
               <h4 className="mb-4 text-xl font-black">{item.title}</h4>
-              <p className="mb-6 text-sm leading-relaxed opacity-80">{item.copy}</p>
-              <div className={cn("space-y-1 font-mono text-[10px]", item.wide && "grid grid-cols-2 gap-4 space-y-0")}>
-                {item.checks.map((check) => (
-                  <div key={check} className="flex items-center gap-2">
-                    <span className="size-2 rounded-full bg-green-500" />
-                    <span>{check}</span>
-                  </div>
-                ))}
-              </div>
+              <p className="text-base leading-relaxed opacity-80">{item.copy}</p>
             </Card>
           );
         })}
@@ -541,52 +509,18 @@ function Expertise() {
   );
 }
 
-function PersonalLayer() {
-  return (
-    <section
-      id="personal"
-      className="relative mx-auto w-full max-w-[1200px] overflow-hidden border-t-2 border-black bg-black px-4 py-16 text-white md:px-12"
-    >
-      <div className="grid-bg pointer-events-none absolute inset-0 opacity-10" />
-      <div className="relative z-10 mb-16">
-        <h2 className="terminal-glow text-5xl font-black uppercase italic tracking-tight">
-          Off Screen
-        </h2>
-        <p className="mt-2 font-mono text-xs text-primary">
-          BACKGROUND_PROCESSES.EXEC
-        </p>
-      </div>
-      <div className="relative z-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-        {offscreen.map((item) => {
-          const Icon = item.icon;
-          return (
-            <div
-              key={item.title}
-              className="flex flex-col border border-white/20 bg-white/5 p-4 backdrop-blur-sm transition-all hover:border-primary"
-            >
-              <Icon className="mb-4 size-8 text-primary" />
-              <span className="mb-1 font-mono text-[11px] font-bold">
-                {item.title}
-              </span>
-              <span className="text-[10px] text-white/60">{item.copy}</span>
-            </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
 function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="w-full border-t-4 border-black bg-white">
-      <div className="mx-auto flex max-w-[1200px] flex-col items-center px-4 py-12 md:px-12">
-        <div className="mb-12 flex flex-wrap justify-center gap-12">
-          <div className="flex flex-col">
-            <span className="mb-4 font-mono text-[10px] font-bold uppercase text-primary">
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-8 px-4 py-8 md:px-12">
+        <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+          <div>
+            <span className="mb-3 block font-mono text-[10px] font-bold uppercase text-primary">
               {"// SOCIALS"}
             </span>
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-wrap gap-x-6 gap-y-3">
               {socials.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -594,6 +528,7 @@ function Footer() {
                     key={social.label}
                     href={social.href}
                     target="_blank"
+                    rel="noreferrer"
                     className="group flex items-center gap-2 font-mono text-sm font-bold text-muted-foreground transition-all hover:text-primary"
                   >
                     <span className="opacity-0 transition-opacity group-hover:opacity-100">
@@ -606,15 +541,15 @@ function Footer() {
               })}
             </nav>
           </div>
-          <div className="flex flex-col items-center justify-center border-2 border-dashed border-black/20 p-8 text-center">
+          <div className="min-w-[280px] border-2 border-dashed border-black/20 px-6 py-5 text-left md:text-center">
             <div className="mb-2 font-mono text-xs">LAST_SYSTEM_PULSE</div>
-            <div className="text-2xl font-black">2026-06-03 20:26:00</div>
+            <div className="text-2xl font-black">2024-12-04 09:12:00</div>
           </div>
         </div>
-        <div className="mb-8 h-px w-full bg-black/10" />
-        <div className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
+        <div className="h-px w-full bg-black/10" />
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div className="font-mono text-[11px] font-bold uppercase tracking-tight text-foreground">
-            © 2026 ABHIMANYU SAHARAN
+            © {currentYear} ABHIMANYU SAHARAN
             <span className="mx-2 text-primary">|</span>
             BUILT FOR PRECISION
             <span className="mx-2 text-primary">|</span>
@@ -638,7 +573,6 @@ export default function Home() {
       <Hero />
       <Projects />
       <Expertise />
-      <PersonalLayer />
       <Footer />
     </main>
   );
