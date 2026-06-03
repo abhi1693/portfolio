@@ -273,7 +273,7 @@ function Header() {
       <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between px-4 py-4 md:px-12">
         <Link href="#" className="flex items-center gap-2">
           <span className="flex size-8 items-center justify-center rounded-sm bg-black font-mono text-xs font-bold text-white">
-            A.OS
+            A
           </span>
           <span className="text-xl font-black uppercase italic tracking-tight">
             ABHIMANYU
