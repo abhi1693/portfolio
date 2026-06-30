@@ -52,6 +52,7 @@ RUN apt-get update \
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/.next/faro-sourcemaps ./.next/faro-sourcemaps
 
 USER nextjs
 
