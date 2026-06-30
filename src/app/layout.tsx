@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
 
+import { FaroRum } from "./faro-rum";
 import "./globals.css";
 
 const geist = Geist({
@@ -27,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geist.variable} ${mono.variable} font-sans`}>
+        <FaroRum />
         {children}
       </body>
     </html>
