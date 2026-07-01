@@ -7,6 +7,15 @@ import { TracingInstrumentation } from "@grafana/faro-web-tracing";
 let faroInitialized = false;
 let faroActionTrackingInitialized = false;
 
+type FaroRuntimeConfig = {
+  enabled: boolean;
+  url?: string;
+  apiKey?: string;
+  appName: string;
+  appVersion?: string;
+  environment: string;
+};
+
 const ACTION_SELECTOR =
   'button, a[href], input[type="button"], input[type="submit"], input[type="reset"], [role="button"], [role="link"]';
 const USER_ACTION_FALLBACK_END_DELAY_MS = 1200;
@@ -162,35 +171,86 @@ function toFaroActionSlug(value: string | undefined) {
     .slice(0, 48);
 }
 
+async function getFaroRuntimeConfig(
+  defaultAppName: string,
+): Promise<FaroRuntimeConfig> {
+  const buildTimeConfig: FaroRuntimeConfig = {
+    enabled: process.env.NEXT_PUBLIC_FARO_ENABLED === "true",
+    url: process.env.NEXT_PUBLIC_FARO_URL?.trim(),
+    apiKey: process.env.NEXT_PUBLIC_FARO_API_KEY?.trim(),
+    appName: process.env.NEXT_PUBLIC_FARO_APP_NAME || defaultAppName,
+    appVersion: process.env.NEXT_PUBLIC_FARO_APP_VERSION || undefined,
+    environment: process.env.NEXT_PUBLIC_FARO_ENVIRONMENT || "production",
+  };
+
+  if (buildTimeConfig.enabled && buildTimeConfig.url && buildTimeConfig.apiKey) {
+    return buildTimeConfig;
+  }
+
+  try {
+    const response = await fetch("/api/faro-config", {
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      return buildTimeConfig;
+    }
+
+    const runtimeConfig = (await response.json()) as Partial<FaroRuntimeConfig>;
+
+    return {
+      enabled: runtimeConfig.enabled === true,
+      url: runtimeConfig.url?.trim(),
+      apiKey: runtimeConfig.apiKey?.trim(),
+      appName: runtimeConfig.appName || defaultAppName,
+      appVersion: runtimeConfig.appVersion || undefined,
+      environment: runtimeConfig.environment || "production",
+    };
+  } catch {
+    return buildTimeConfig;
+  }
+}
+
 export function FaroRum() {
   useEffect(() => {
-    if (faroInitialized || process.env.NEXT_PUBLIC_FARO_ENABLED !== "true") {
+    let cancelled = false;
+
+    if (faroInitialized) {
       return;
     }
 
-    const url = process.env.NEXT_PUBLIC_FARO_URL?.trim();
-    const apiKey = process.env.NEXT_PUBLIC_FARO_API_KEY?.trim();
+    void getFaroRuntimeConfig("portfolio").then((config) => {
+      if (
+        cancelled ||
+        faroInitialized ||
+        !config.enabled ||
+        !config.url ||
+        !config.apiKey
+      ) {
+        return;
+      }
 
-    if (!url || !apiKey) {
-      return;
-    }
+      faroInitialized = true;
 
-    faroInitialized = true;
-
-    initializeFaro({
-      url,
-      apiKey,
-      app: {
-        name: process.env.NEXT_PUBLIC_FARO_APP_NAME || "portfolio",
-        version: process.env.NEXT_PUBLIC_FARO_APP_VERSION || undefined,
-        environment: process.env.NEXT_PUBLIC_FARO_ENVIRONMENT || "production",
-      },
-      instrumentations: [
-        ...getWebInstrumentations(),
-        new TracingInstrumentation(),
-      ],
+      initializeFaro({
+        url: config.url,
+        apiKey: config.apiKey,
+        app: {
+          name: config.appName,
+          version: config.appVersion,
+          environment: config.environment,
+        },
+        instrumentations: [
+          ...getWebInstrumentations(),
+          new TracingInstrumentation(),
+        ],
+      });
+      installFaroUserActionTracking();
     });
-    installFaroUserActionTracking();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return null;
