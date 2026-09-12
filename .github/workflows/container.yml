@@ -12,7 +12,7 @@ permissions:
 jobs:
   build:
     name: Build linux/arm64
-    uses: abhi1693/actions/.github/workflows/docker-build-push.yml@34e92ba1eee6a47e9b10f13e2180114fc01b6027
+    uses: abhi1693/actions/.github/workflows/docker-build-push.yml@98222de88f6768904e43a1a92a32e2bdc9a16e4c
     with:
       runs-on: ubuntu-24.04-arm
       image: ghcr.io/${{ github.repository }}
