@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    uses: abhi1693/actions/.github/workflows/node-ci.yml@v1
+    with:
+      checks: '["lint", "typecheck", "test", "build"]'
+      scripts: '{"lint": "lint", "typecheck": "typecheck", "test": "test", "build": "build"}'
+      node-version: "26.12.1"
+      ignore-scripts: true
+      timeout-minutes: 15

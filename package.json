@@ -1,35 +1,43 @@
 {
   "name": "abhimanyu-portfolio",
-  "version": "0.1.0",
+  "version": "0.1.10",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build && node scripts/prepare-faro-sourcemaps.mjs",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test:dependency-security": "node --test scripts/check-braces.cjs",
+    "test": "npm run test:dependency-security"
   },
   "dependencies": {
-    "@grafana/faro-web-sdk": "^2.8.1",
-    "@grafana/faro-web-tracing": "^2.8.1",
-    "@radix-ui/react-slot": "latest",
-    "class-variance-authority": "latest",
-    "clsx": "latest",
-    "lucide-react": "latest",
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "tailwind-merge": "latest",
-    "tailwindcss-animate": "latest"
+    "@grafana/faro-web-sdk": "^2.13.0",
+    "@grafana/faro-web-tracing": "^2.13.0",
+    "@radix-ui/react-slot": "^1.5.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.61.0",
+    "next": "^16.4.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwind-merge": "^3.7.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "autoprefixer": "latest",
-    "eslint": "latest",
-    "eslint-config-next": "latest",
-    "postcss": "latest",
-    "tailwindcss": "^3.4.17",
-    "typescript": "latest"
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "autoprefixer": "^10.6.1",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.2",
+    "postcss": "^8.5.31",
+    "tailwindcss": "^4.3.3",
+    "typescript": "6.0.3",
+    "@tailwindcss/postcss": "^4.3.3",
+    "braces": "file:packages/braces"
+  },
+  "overrides": {
+    "braces": "$braces"
   }
 }
