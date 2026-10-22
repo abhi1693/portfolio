@@ -35,3 +35,7 @@ If the GHCR package is private, authenticate first:
 ```bash
 docker login ghcr.io -u abhi1693
 ```
+
+## Prepared patch release 0.1.10
+
+The dependency refresh upgrades to Next.js 16.4.2, React 19.3.1, Tailwind CSS 4.3.3, and the patched Node.js 26.12.1 container base. The v4 PostCSS plugin loads the existing theme explicitly and preserves container spacing. Run `npm ci --ignore-scripts`, `npm run lint`, `npm run typecheck`, and `npm run build` before release. See [CHANGELOG.md](CHANGELOG.md) for the remaining upstream toolchain constraints. This PR does not publish an image or deploy the site.

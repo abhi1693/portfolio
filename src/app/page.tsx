@@ -272,7 +272,7 @@ function Header() {
     <header className="sticky top-0 z-50 border-b-2 border-black bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between px-4 py-4 md:px-12">
         <Link href="#" className="flex items-center gap-2">
-          <span className="flex size-8 items-center justify-center rounded-sm bg-black font-mono text-xs font-bold text-white">
+          <span className="flex size-8 items-center justify-center rounded-xs bg-black font-mono text-xs font-bold text-white">
             A
           </span>
           <span className="text-xl font-black uppercase italic tracking-tight">
@@ -318,7 +318,7 @@ function Hero() {
         </div>
       </div>
       <div className="pointer-events-none relative z-10 mx-auto w-full max-w-[1500px] px-4 md:px-12">
-        <div className="pointer-events-auto mb-6 inline-flex items-center gap-3 rounded-sm bg-black px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-white">
+        <div className="pointer-events-auto mb-6 inline-flex items-center gap-3 rounded-xs bg-black px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-white">
           <span className="animate-[heartbeat_2s_ease-in-out_infinite] text-primary">
             ●
           </span>
@@ -397,7 +397,7 @@ function ProjectCard({
           <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
             {project.description}
           </p>
-          <div className="mt-auto rounded-sm border border-black/5 bg-muted p-4 font-mono text-[11px] leading-tight">
+          <div className="mt-auto rounded-xs border border-black/5 bg-muted p-4 font-mono text-[11px] leading-tight">
             {project.metrics.map(([label, value, color]) => (
               <div key={label} className="mb-1 flex justify-between last:mb-0">
                 <span>{label}</span>
