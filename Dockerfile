@@ -13,6 +13,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json ./
+COPY packages/braces ./packages/braces
 RUN npm ci --ignore-scripts
 
 FROM base AS builder

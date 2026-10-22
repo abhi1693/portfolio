@@ -7,7 +7,9 @@
     "build": "next build && node scripts/prepare-faro-sourcemaps.mjs",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:dependency-security": "node --test scripts/check-braces.cjs",
+    "test": "npm run test:dependency-security"
   },
   "dependencies": {
     "@grafana/faro-web-sdk": "^2.13.0",
@@ -32,6 +34,10 @@
     "postcss": "^8.5.31",
     "tailwindcss": "^4.3.3",
     "typescript": "6.0.3",
-    "@tailwindcss/postcss": "^4.3.3"
+    "@tailwindcss/postcss": "^4.3.3",
+    "braces": "file:packages/braces"
+  },
+  "overrides": {
+    "braces": "$braces"
   }
 }
