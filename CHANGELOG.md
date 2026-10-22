@@ -1,6 +1,6 @@
 # Release notes
 
-## 0.1.10 (prepared, unreleased)
+## 0.1.10
 
 - Refresh runtime and development dependencies and regenerate the npm lockfile.
 - Use Next.js 16.4.2 and React 19.3.1, with Node.js 26.12.1 for container and local validation.
@@ -8,5 +8,3 @@
 - Migrate Tailwind CSS 3 to 4 and its dedicated PostCSS plugin, preserving the existing theme and container spacing.
 
 - Apply the reviewed MIT-licensed bounded braces parser/AST patch for CVE-2026-93687 to every transitive consumer, with actual-consumer and malicious-input regression tests; keep the normal audit policy.
-
-This change prepares a patch release only. It does not publish a release, container, database migration, or deployment.
