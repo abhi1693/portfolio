@@ -1,5 +1,11 @@
 # Release notes
 
+## 0.1.11
+
+- Use a pinned Node.js 26.12.1 Alpine runtime consistently across all build stages and remove unused runtime package managers.
+- Validate native ARM64 image security and standalone HTTP, static asset, Sharp and image optimizer behavior in pull-request CI and before release-image promotion.
+- Replace the blocked 0.1.10 image release, which failed its runtime security scan and was not deployed. Its published tag remains unchanged.
+
 ## 0.1.10
 
 - Refresh runtime and development dependencies and regenerate the npm lockfile.

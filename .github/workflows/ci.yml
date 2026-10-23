@@ -21,3 +21,18 @@ jobs:
       node-version: "26.12.1"
       ignore-scripts: true
       timeout-minutes: 15
+  runtime-image:
+    name: Validate native ARM64 runtime
+    permissions:
+      contents: read
+      packages: write
+    uses: abhi1693/actions/.github/workflows/docker-build-push.yml@v1
+    with:
+      push: false
+      matrix: '[{"runner":"ubuntu-24.04-arm","platform":"linux/arm64"}]'
+      image: ghcr.io/${{ github.repository }}
+      context: .
+      file: Dockerfile
+      cache-scope: portfolio-arm64
+      tags: type=raw,value=ci-${{ github.sha }}
+      smoke-script: scripts/smoke-runtime.sh

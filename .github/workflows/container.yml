@@ -20,6 +20,7 @@ jobs:
       context: .
       file: Dockerfile
       cache-scope: portfolio-arm64
+      smoke-script: scripts/smoke-runtime.sh
       tags: |
         type=semver,pattern={{version}},enable=${{ github.event_name == 'release' }}
         type=raw,value=latest,enable=${{ github.event_name == 'release' }}
