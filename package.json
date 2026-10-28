@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/prepare-faro-sourcemaps.mjs",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
@@ -12,8 +12,6 @@
     "test": "npm run test:dependency-security"
   },
   "dependencies": {
-    "@grafana/faro-web-sdk": "^2.13.0",
-    "@grafana/faro-web-tracing": "^2.13.0",
     "@radix-ui/react-slot": "^1.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

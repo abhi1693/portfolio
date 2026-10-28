@@ -19,16 +19,6 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN mkdir -p public
 
-ARG NEXT_PUBLIC_FARO_ENABLED=false
-ARG NEXT_PUBLIC_FARO_URL=
-ARG NEXT_PUBLIC_FARO_API_KEY=
-ARG NEXT_PUBLIC_FARO_APP_NAME=portfolio
-ARG NEXT_PUBLIC_FARO_ENVIRONMENT=production
-ENV NEXT_PUBLIC_FARO_ENABLED=${NEXT_PUBLIC_FARO_ENABLED} \
-    NEXT_PUBLIC_FARO_URL=${NEXT_PUBLIC_FARO_URL} \
-    NEXT_PUBLIC_FARO_API_KEY=${NEXT_PUBLIC_FARO_API_KEY} \
-    NEXT_PUBLIC_FARO_APP_NAME=${NEXT_PUBLIC_FARO_APP_NAME} \
-    NEXT_PUBLIC_FARO_ENVIRONMENT=${NEXT_PUBLIC_FARO_ENVIRONMENT}
 RUN npm run build
 
 FROM base AS runner
@@ -47,7 +37,6 @@ RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack 
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/.next/faro-sourcemaps ./.next/faro-sourcemaps
 
 USER nextjs
 
