@@ -1,5 +1,9 @@
 # Release notes
 
+## 0.1.12 — 2026-10-28
+
+- Remove retired Faro browser monitoring and private source-map collection.
+
 ## 0.1.11
 
 - Use a pinned Node.js 26.12.1 Alpine runtime consistently across all build stages and remove unused runtime package managers.
