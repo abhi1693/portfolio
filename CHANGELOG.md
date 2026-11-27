@@ -1,5 +1,12 @@
 # Release notes
 
+## 0.2.0 — 2026-11-27
+
+- Rebuild the responsive portfolio around projects, writing, and daily GitHub activity.
+- Add a gadgets page with disclosed affiliate links and track outbound portfolio referrals.
+- Add structured data, canonical URLs, sitemap, crawl directives, and page-specific social previews.
+- Refresh JavaScript dependencies and the pinned ARM64 Node.js runtime.
+
 ## 0.1.12 — 2026-10-28
 
 - Remove retired Faro browser monitoring and private source-map collection.

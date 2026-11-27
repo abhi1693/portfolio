@@ -1,6 +1,6 @@
 {
   "name": "abhimanyu-portfolio",
-  "version": "0.1.12",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,25 +15,25 @@
     "@radix-ui/react-slot": "^1.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^1.61.0",
-    "next": "^16.4.2",
+    "lucide-react": "^1.82.0",
+    "next": "^16.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "tailwind-merge": "^3.7.0",
+    "tailwind-merge": "^3.7.1",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@types/node": "^26.6.5",
-    "@types/react": "^19.3.0",
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/node": "^26.6.11",
+    "@types/react": "^19.3.3",
     "@types/react-dom": "^19.3.0",
-    "autoprefixer": "^10.6.1",
+    "autoprefixer": "^10.7.0",
+    "braces": "file:packages/braces",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^16.4.2",
-    "postcss": "^8.5.31",
-    "tailwindcss": "^4.3.3",
-    "typescript": "6.0.3",
-    "@tailwindcss/postcss": "^4.3.3",
-    "braces": "file:packages/braces"
+    "eslint-config-next": "^16.4.6",
+    "postcss": "^8.5.34",
+    "tailwindcss": "^4.3.5",
+    "typescript": "6.0.3"
   },
   "overrides": {
     "braces": "$braces"
